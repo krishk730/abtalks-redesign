@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "ABTalks"
+description = "A modern responsive homepage redesign for ABTalks, built mobile-first for a hackathon and ready to expand into the full experience."
+version = "1.0.0"
+id = "artifacts/abtalks"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 24733
+
+[services.development]
+run = "pnpm --filter @workspace/abtalks run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/abtalks", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/abtalks/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "24733"
+BASE_PATH = "/"
